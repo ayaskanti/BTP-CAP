@@ -1,0 +1,74 @@
+PROCEDURE "GET_COMP_TABLE" (
+    IN "SHOW_ALL" BOOLEAN,
+    IN "ID" BIGINT,
+    IN "FILTER_PARAMS" NCLOB,
+    IN "PAGE_NUMBER" INTEGER,
+    IN "PAGE_SIZE" INTEGER,
+    IN "SORTING_KEY" NVARCHAR(100)
+) AS
+BEGIN
+    DECLARE Total_Records INTEGER := 0;
+    DECLARE Query NVARCHAR(5000) := '';  -- Increased size to handle larger queries
+    DECLARE START_INDEX INTEGER := (:PAGE_NUMBER - 1) * :PAGE_SIZE;
+    DECLARE TEMP_COMP_TABLE NVARCHAR(5000);
+    -- DECLARE COMP_ID BIGINT;
+    DECLARE NAME VARCHAR(100);
+    DECLARE DEPT VARCHAR(100);
+
+    -- Base query to count total records
+    TEMP_COMP_TABLE := 'SELECT * FROM "comp_table"';
+    EXECUTE IMMEDIATE 'SELECT COUNT(*) FROM (' || :TEMP_COMP_TABLE || ')' INTO Total_Records;
+
+    -- Adjust PAGE_SIZE if it's zero
+    PAGE_SIZE := CASE WHEN PAGE_SIZE = 0 THEN Total_Records ELSE PAGE_SIZE END;
+
+    -- Query for showing all records if SHOW_ALL is TRUE
+    IF SHOW_ALL = TRUE THEN
+        Query := 'SELECT * FROM "comp_table" ORDER BY "' || COALESCE(:SORTING_KEY, 'Comp_ID') || '" DESC LIMIT ' || :PAGE_SIZE || ' OFFSET ' || :START_INDEX;
+        EXECUTE IMMEDIATE Query;
+
+    ELSE
+        -- Check if FILTER_PARAMS is provided
+        IF FILTER_PARAMS IS NOT NULL AND FILTER_PARAMS != '' THEN
+            -- Extract filter parameters from the JSON input
+            SELECT JSON_VALUE(:FILTER_PARAMS, '$.Comp_ID') INTO ID FROM DUMMY;
+            SELECT JSON_VALUE(:FILTER_PARAMS, '$.Comp_Name') INTO NAME FROM DUMMY;
+            SELECT JSON_VALUE(:FILTER_PARAMS, '$.Comp_dept') INTO DEPT FROM DUMMY;
+
+            -- Start building the WHERE clause
+            Query := 'SELECT * FROM "comp_table" WHERE 1=1';
+
+            -- Apply filter for COMP_ID if provided
+            IF ID > 0 THEN
+                QUERY := QUERY || CASE WHEN QUERY = '' THEN ' "Comp_ID" = ' || :ID ELSE ' AND "Comp_ID" = ' || :ID
+                END;
+            END IF;
+
+            -- Apply filter for NAME if provided
+            IF NAME IS NOT NULL AND NAME != '' THEN
+                Query := Query || ' AND LOWER("Comp_Name") LIKE ''%' || LOWER(NAME) || '%''';
+            END IF;
+
+            -- Apply filter for DEPT if provided
+            IF DEPT IS NOT NULL AND DEPT != '' THEN
+                Query := Query || ' AND LOWER("Comp_dept") LIKE ''%' || LOWER(DEPT) || '%''';
+            END IF;
+
+            -- Add sorting, if SORTING_KEY is provided
+            IF SORTING_KEY IS NOT NULL AND SORTING_KEY != '' THEN
+                Query := Query || ' ORDER BY "' || SORTING_KEY || '"';
+            END IF;
+
+            -- Add pagination
+            Query := Query || ' LIMIT ' || :PAGE_SIZE || ' OFFSET ' || :START_INDEX;
+
+            -- Execute the final query
+            EXECUTE IMMEDIATE Query;
+        ELSE
+            -- If no filters are provided, select all with sorting and pagination
+            Query := 'SELECT * FROM "comp_table" ORDER BY "' || COALESCE(:SORTING_KEY, 'Comp_ID') || '" LIMIT ' || :PAGE_SIZE || ' OFFSET ' || :START_INDEX;
+            EXECUTE IMMEDIATE Query;
+        END IF;
+    END IF;
+
+END;
