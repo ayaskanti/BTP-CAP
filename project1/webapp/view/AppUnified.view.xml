@@ -1,0 +1,37 @@
+<mvc:View controllerName="project1.controller.AppUnified"
+     xmlns="sap.m"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns:core="sap.ui.core"
+    xmlns:custom="http://schemas.sap.com/sapui5/extension/sap.ui.core.CustomData/1"
+    xmlns:f="sap.f"
+    xmlns:tnt="sap.tnt" height="100%">
+    <Page showHeader="true" enableScrolling="false" titleAlignment="Center">
+        <customHeader>
+            <Bar>
+                <contentLeft>
+             
+                    <Image src="./images/LOGO.png" height="35px" press="onPressLogo"/>
+                    <Title titleStyle="H5" text="{sideNavigation>/title}" textAlign="Center" visible="{device>/system/desktop}"/>
+                </contentLeft>
+                <contentMiddle>
+                </contentMiddle>
+                <contentRight>
+                    <Button icon="sap-icon://hint" type="Transparent" />
+                    <Button icon="sap-icon://bell" type="Transparent" />
+                    <Avatar initials="A" displaySize="XS" press=".menuPopoverOpen" />
+                </contentRight>
+            </Bar>
+        </customHeader>
+        <content>
+            <tnt:ToolPage id="toolPage">
+             
+                <tnt:mainContents>
+                  
+                    <f:FlexibleColumnLayout id="fcl" stateChange=".onStateChanged" backgroundDesign="Translucent" layout="{/layout}"/>
+                </tnt:mainContents>
+            </tnt:ToolPage>
+        </content>
+        
+    </Page>
+</mvc:View>
+

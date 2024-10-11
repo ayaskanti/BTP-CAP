@@ -1,0 +1,48 @@
+<mvc:View controllerName="project1.controller.View"
+    xmlns:mvc="sap.ui.core.mvc" displayBlock="true"
+    xmlns="sap.m"
+    xmlns:f="sap.f"
+    xmlns:l="sap.ui.layout"
+    xmlns:form="sap.ui.layout.form"
+    xmlns:card="sap.f.cards"
+    xmlns:core="sap.ui.core"
+    xmlns:field="http://schemas.sap.com/sapui5/extension/sap.ui.core.CustomData/1">
+    <Page id="pageLogin" showHeader="false" showFooter="true" backgroundDesign="Transparent">
+    
+        <content>
+            <VBox height="100%" justifyContent="Center" alignItems="Center">
+                <FlexBox justifyContent="Center" alignItems="Center" direction="Column">
+                    <f:Card>
+                       <f:content>
+                            <VBox class="sapUiSmallMargin " justifyContent="Center" alignItems="Center">
+                                <HBox class="sapUiSmallMargin" alignItems="Center">
+                                    <Image src="./images/LOGO.png" width="150px"></Image>
+                                    <Title class="sapUiTinyMarginTop" wrapping="true" titleStyle="H2" />
+                                  
+                                </HBox>
+                                <form:SimpleForm id="sfLoginForm" editable="false" layout="ResponsiveGridLayout" labelSpanXL="3" labelSpanL="3" labelSpanM="3" labelSpanS="12" adjustLabelSpan="false" emptySpanXL="4" emptySpanL="4" emptySpanM="4" emptySpanS="0" columnsXL="1" columnsL="1" columnsM="1" singleContainerFullSize="false">
+                                    <form:content>
+                                        <Label text="Email" />
+                              
+                                        <Input id="inpUsername" class="input" value="{
+                                            path : 'loginMdl>/email',
+                                            constraints:{minLength: 1, maxLength: 15}}" placeholder="Enter Your Email" />
+                                        <Label text="Password" />
+                                       
+                                        <Input type="Password" class="input" id="inpPassword" value="{
+                                            path : 'loginMdl>/password',
+                                            constraints: {minLength: 1,maxLength: 15}}" placeholder="Enter Your Password"/>
+                                        <Button text="SignIn" type="Emphasized" class="button" width="100%" press="onPressLogin"/>
+                                    </form:content>
+                                </form:SimpleForm>
+                            </VBox>
+                        </f:content>
+                    </f:Card>
+                    <!--   <Text class="copyright" text="{i18n>copyright}" textAlign="Center"/> -->
+                </FlexBox>
+            </VBox>
+        </content>
+      
+    </Page>
+</mvc:View>
+

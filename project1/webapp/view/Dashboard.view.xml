@@ -1,0 +1,83 @@
+<mvc:View controllerName="project1.controller.Dashboard"
+    xmlns:mvc="sap.ui.core.mvc" displayBlock="true"
+    xmlns="sap.m"
+    xmlns:f="sap.f"
+    xmlns:card="sap.f.cards"
+    xmlns:l="sap.ui.layout"
+    xmlns:form="sap.ui.layout.form"
+    xmlns:core="sap.ui.core"
+    xmlns:fb="sap.ui.comp.filterbar"
+    xmlns:vm="sap.ui.comp.variants"
+    xmlns:w="sap.ui.integration.widgets"
+    xmlns:cssgrid="sap.ui.layout.cssgrid"
+    xmlns:micro="sap.suite.ui.microchart"
+    xmlns:u="sap.uxap"
+    xmlns:tnt="sap.tnt"
+    xmlns:app="http://schemas.sap.com/sapui5/extension/sap.ui.core.CustomData/1" height="100%">
+    <Page  id="sap" showHeader="true" enableScrolling="false" titleAlignment="Center" showFooter="false">
+        <customHeader>
+            <Bar>
+                <contentLeft>
+                    <Image src="./images/LOGO.png" height="50px" />
+                </contentLeft>
+                <contentMiddle>
+                </contentMiddle>
+                <contentRight>
+                    <Button icon="sap-icon://hint" type="Transparent" />
+                    <Button icon="sap-icon://bell" type="Transparent" />
+                    <Avatar initials="A" displaySize="XS" press=".menuPopoverOpen" />
+                </contentRight>
+            </Bar>
+        </customHeader>
+
+        <content>
+            <tnt:ToolPage id="toolPage">
+                <tnt:mainContents>
+                    <u:ObjectPageLayout id="ObjectPageLayout" upperCaseAnchorBar="false" showHeaderContent="false">
+                        <u:sections>
+                            <u:ObjectPageSection titleUppercase="false" title="Company">
+                                <u:subSections>
+                                    <u:ObjectPageSubSection titleUppercase="false">
+                                        <f:GridContainer columnsChange=".onGridColumnsChange">
+                                            <f:layout>
+                                                <f:GridContainerSettings rowSize="55px" columnSize="84px" gap="12px" />
+                                            </f:layout>
+                                            <f:layoutXS>
+                                                <f:GridContainerSettings rowSize="45px" columnSize="70px" gap="12px" />
+                                            </f:layoutXS>
+
+                                            <!-- <GenericTile sizeBehavior="Responsive" header="Dashboard" subheader="Administration" press="onPressTile" app:route="manage-communication-arrangements" app:key="1">
+                                                <layoutData>
+                                                    <f:GridContainerItemLayoutData minRows="2" columns="2" />
+                                                </layoutData>
+                                                <TileContent footer="Operational Overview">
+                                                    <ImageContent src="sap-icon://bbyd-dashboard" class="sapUiTinyMarginBegin"/>
+                                                </TileContent>
+                                            </GenericTile> -->
+                                            <GenericTile sizeBehavior="Responsive" header="Company" subheader="Search your Company" press="onPressTile" app:route="Comp-table" app:key="1">
+                                                <layoutData>
+                                                    <f:GridContainerItemLayoutData minRows="2" columns="2" />
+                                                </layoutData>
+                                                <TileContent>
+                                                    <ImageContent src="sap-icon://company-view" class="sapUiTinyMarginBegin"/>
+                                                </TileContent>
+                                            </GenericTile>
+                                            <GenericTile sizeBehavior="Responsive" header="Employee" subheader="" press="onPressTile" app:route="Emp-table" app:key="1">
+                                                <layoutData>
+                                                    <f:GridContainerItemLayoutData minRows="2" columns="2" />
+                                                </layoutData>
+                                                <TileContent>
+                                                    <ImageContent src="sap-icon://SAP-icons-TNT/receive-task" class="sapUiTinyMarginBegin"/>
+                                                </TileContent>
+                                            </GenericTile>
+                                        </f:GridContainer>
+                                    </u:ObjectPageSubSection>
+                                </u:subSections>
+                            </u:ObjectPageSection>
+                        </u:sections>
+                    </u:ObjectPageLayout>
+                </tnt:mainContents>
+            </tnt:ToolPage>
+        </content>
+    </Page>
+</mvc:View>

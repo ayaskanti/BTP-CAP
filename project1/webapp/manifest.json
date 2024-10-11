@@ -81,17 +81,48 @@
           "name": "RouteView1",
           "pattern": ":?query:",
           "target": [
-            "TargetView1"
+            "TargetView"
+          ]
+        },
+        {
+          "name": "dashboard",
+          "pattern": "dashboard",
+          "target": [
+            "Dashboard"
+          ]
+        },
+        {
+          "name": "Comp-table",
+          "pattern": "Comp-table",
+          "target": [
+            "Company"
           ]
         }
       ],
       "targets": {
-        "TargetView1": {
+        "AppUnified": {
+          "viewName": "AppUnified"
+        },
+        "TargetView": {
           "viewType": "XML",
           "transition": "slide",
           "clearControlAggregation": false,
-          "viewId": "View1",
-          "viewName": "View1"
+          "viewId": "View",
+          "viewName": "View"
+        },
+        "Dashboard": {
+          "viewType": "XML",
+          "transition": "slide",
+          "viewName": "Dashboard"
+        },
+        "Company": {
+          "viewName": "company.Company",
+          "viewType": "XML",
+          "transition": "slide",
+          "viewId": "Employee",
+          "parent": "AppUnified",
+          "controlId": "fcl",
+          "controlAggregation": "beginColumnPages"
         }
       }
     },

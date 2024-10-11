@@ -1,128 +1,148 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?><project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-	<modelVersion>4.0.0</modelVersion>
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+         
+    <modelVersion>4.0.0</modelVersion>
 
-	<parent>
-		<artifactId>Cap_Sample-parent</artifactId>
-		<groupId>customer</groupId>
-		<version>${revision}</version>
-	</parent>
+    <!-- Parent Project Configuration -->
+    <parent>
+        <artifactId>Cap_Sample-parent</artifactId>
+        <groupId>customer</groupId>
+        <version>${revision}</version>
+    </parent>
 
-	<artifactId>Cap_Sample</artifactId>
-	<packaging>jar</packaging>
+    <artifactId>Cap_Sample</artifactId>
+    <packaging>jar</packaging>
+    <name>Cap_Sample</name>
 
-	<name>Cap_Sample</name>
+    <!-- Dependencies Section -->
+    <dependencies>
+        <!-- CDS Spring Boot Starter -->
+        <dependency>
+            <groupId>com.sap.cds</groupId>
+            <artifactId>cds-starter-spring-boot</artifactId>
+        </dependency>
 
-	<!-- ACTUAL DEPENDENCIES -->
-	<dependencies>
-		<!-- CDS SPRING BOOT STARTER -->
-		<dependency>
-			<groupId>com.sap.cds</groupId>
-			<artifactId>cds-starter-spring-boot</artifactId>
-		</dependency>
+        <!-- OData Protocol Adapter -->
+        <dependency>
+            <groupId>com.sap.cds</groupId>
+            <artifactId>cds-adapter-odata-v4</artifactId>
+            <scope>runtime</scope>
+        </dependency>
 
-		<!-- ODATA PROTOCOL ADAPTER -->
-		<dependency>
-			<groupId>com.sap.cds</groupId>
-			<artifactId>cds-adapter-odata-v4</artifactId>
-			<scope>runtime</scope>
-		</dependency>
+        <!-- H2 Database for runtime -->
+        <dependency>
+            <groupId>com.h2database</groupId>
+            <artifactId>h2</artifactId>
+            <scope>runtime</scope>
+        </dependency>
 
-		<dependency>
-			<groupId>com.h2database</groupId>
-			<artifactId>h2</artifactId>
-			<scope>runtime</scope>
-		</dependency>
-
-		<!-- Entity -->
-       <dependency>
+        <!-- Entity Dependency -->
+        <dependency>
             <groupId>javax</groupId>
             <artifactId>javaee-api</artifactId>
             <version>8.0.1</version>
         </dependency>
-        <!-- Getter & Setter -->
+
+        <!-- Lombok for getter and setter generation -->
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
             <optional>true</optional>
         </dependency>
+
+        <!-- Spring Boot Starter for Tomcat -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-tomcat</artifactId>
             <scope>provided</scope>
         </dependency>
-<dependency>
-			<groupId>com.sap.hana.cloud</groupId>
-			<artifactId>spring-cloud-cloudfoundry-hana-service-connector</artifactId>
-			<version>1.0.4.RELEASE</version>
-		</dependency>
-		<dependency>
-			<groupId>org.springframework.cloud</groupId>
-			<artifactId>spring-cloud-spring-service-connector</artifactId>
-			<version>1.2.2.RELEASE</version>
-		</dependency>
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-devtools</artifactId>
-			<optional>true</optional>
-		</dependency>
 
-            <dependency>
+        <!-- SAP HANA Service Connector -->
+        <dependency>
+            <groupId>com.sap.hana.cloud</groupId>
+            <artifactId>spring-cloud-cloudfoundry-hana-service-connector</artifactId>
+            <version>1.0.4.RELEASE</version>
+        </dependency>
+
+        <!-- Spring Cloud Service Connector -->
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-spring-service-connector</artifactId>
+            <version>1.2.2.RELEASE</version>
+        </dependency>
+
+        <!-- Dev Tools for Spring Boot -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-devtools</artifactId>
+            <optional>true</optional>
+        </dependency>
+
+        <!-- Spring Boot JPA Dependency -->
+        <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-data-jpa</artifactId>
         </dependency>
- <dependency>
+
+        <!-- SAP Cloud JDBC Driver for HANA -->
+        <dependency>
             <groupId>com.sap.cloud.db.jdbc</groupId>
             <artifactId>ngdbc</artifactId>
             <version>2.9.16</version>
         </dependency>
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-test</artifactId>
-			<scope>test</scope>
-		</dependency>
-	</dependencies>
 
-	<build>
-		<finalName>${project.artifactId}</finalName>
-		<plugins>
-			<!-- SPRING BOOT PLUGIN -->
-			<plugin>
-				<groupId>org.springframework.boot</groupId>
-				<artifactId>spring-boot-maven-plugin</artifactId>
-				<version>${spring.boot.version}</version>
-				<configuration>
-					<skip>false</skip>
-				</configuration>
-				<executions>
-					<execution>
-						<id>repackage</id>
-						<goals>
-							<goal>repackage</goal>
-						</goals>
-						<configuration>
-							<classifier>exec</classifier>
-						</configuration>
-					</execution>
-				</executions>
-			</plugin>
+        <!-- Spring Boot Test Starter -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-test</artifactId>
+            <scope>test</scope>
+        </dependency>
+    </dependencies>
 
-			
-		</plugins>
-	</build>
+    <!-- Build Configuration -->
+    <build>
+        <finalName>${project.artifactId}</finalName>
+        <plugins>
+            <!-- Spring Boot Maven Plugin -->
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+                <version>${spring.boot.version}</version>
+                <configuration>
+                    <skip>false</skip>
+                </configuration>
+                <executions>
+                    <execution>
+                        <id>repackage</id>
+                        <goals>
+                            <goal>repackage</goal>
+                        </goals>
+                        <configuration>
+                            <classifier>exec</classifier>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
 
-	<profiles>
-		<!-- A profile that uses global installation of @sap/cds-dk -->
-		<profile>
-			<id>cdsdk-global</id>
-			<activation>
-				<property>
-					<name>env.CDSDK_GLOBAL</name>
-					<value>true</value>
-				</property>
-			</activation>
-			<properties>
-				<cdsdk-global>true</cdsdk-global>
-			</properties>
-		</profile>
-	</profiles>
+    <!-- Profiles Configuration -->
+    <profiles>
+        <!-- Profile for using global installation of @sap/cds-dk -->
+        <profile>
+            <id>cdsdk-global</id>
+            <activation>
+                <property>
+                    <name>env.CDSDK_GLOBAL</name>
+                    <value>true</value>
+                </property>
+            </activation>
+            <properties>
+                <cdsdk-global>true</cdsdk-global>
+            </properties>
+        </profile>
+    </profiles>
+
 </project>

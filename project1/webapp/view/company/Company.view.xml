@@ -1,0 +1,115 @@
+<mvc:View controllerName="project1.controller.company.Company"
+    xmlns="sap.m"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns:f="sap.f"
+    xmlns:core="sap.ui.core"
+    xmlns:form="sap.ui.layout.form"
+    xmlns:uxap="sap.uxap"
+    xmlns:tnt="sap.tnt"
+    xmlns:fb="sap.ui.comp.filterbar"
+    xmlns:u="sap.ui.unified"
+    xmlns:v="sap.ui.comp.variants"
+    xmlns:smartForm="sap.ui.comp.smartform"
+    xmlns:smartField="sap.ui.comp.smartfield"
+    xmlns:card="sap.f.cards"
+    xmlns:table="sap.ui.table"
+    xmlns:viz.feeds="sap.viz.ui5.controls.common.feeds"
+    xmlns:vm="sap.ui.comp.variants"
+    xmlns:viz.data="sap.viz.ui5.data"
+    xmlns:app="http://schemas.sap.com/sapui5/extension/sap.ui.core.CustomData/1"
+    xmlns:html="http://www.w3.org/1999/xhtml"
+    xmlns:l="sap.ui.layout">
+
+    <f:DynamicPage id="page_MngCompanies" headerExpanded="true">
+        <!-- DynamicPage Title -->
+        <f:title>
+            <f:DynamicPageTitle>
+                <f:heading>
+                    <Title text="Company" />
+                </f:heading>
+            </f:DynamicPageTitle>
+        </f:title>
+
+        <!-- DynamicPage Header -->
+        <f:header>
+            <f:DynamicPageHeader pinnable="true">
+                <fb:FilterBar id="filterbar" filterBarExpanded="true" search="advancedFilter" useToolbar="false" showGoOnFB="true" clear="clearAllFilters" showClearOnFB="true" showFilterConfiguration = "false">
+                    <fb:filterItems>
+                        <fb:FilterItem name="A" label="Company Id">
+                            <fb:control>
+                                <Input placeholder="Selact Company Id" value="{advancedFilterMdl>/compID}"/>
+                            </fb:control>
+                        </fb:FilterItem>
+                        <fb:FilterItem name="B" label="Company Name">
+                            <fb:control>
+                                <Input placeholder="Selact Company Name" value="{advancedFilterMdl>/compName}"/>
+                            </fb:control>
+                        </fb:FilterItem>
+                        <fb:FilterItem name="D" label="Company Department">
+                            <fb:control>
+                                <Input placeholder="Selact Company Department" value="{advancedFilterMdl>/compdept}"/>
+                            </fb:control>
+                        </fb:FilterItem>
+                    </fb:filterItems>
+                </fb:FilterBar>
+            </f:DynamicPageHeader>
+        </f:header>
+        <f:content>
+            <Table id= "tableId_companies" items="{companyMdl>/}" mode="None" sticky="ColumnHeaders,HeaderToolbar" inset="false" class="sapUiSmallMarginTop">
+                <headerToolbar>
+                    <OverflowToolbar>
+                        <content>
+                            <Label design="Bold" text="Teams({= ${companyMdl>/}.length})" visible="{= ${companyMdl>/}.length>=0}" />
+                            <ToolbarSpacer />
+                            <Button text="Create" type="Ghost" press="onCreatePayrollPeriod"/>
+                            <ToolbarSeparator/>
+                            <u:FileUploader id="FileUploaderId" iconOnly="true" buttonOnly="true" icon="sap-icon://upload" tooltip="Import" iconFirst="true" change="onPressImport" sameFilenameAllowed="true" />
+                            <!-- <Button icon="sap-icon://download" press="handleExport" tooltip="Download Excel"/> -->
+                            <Button icon="sap-icon://download" tooltip="Export" press="onPressExport" />
+                            <ToolbarSeparator />
+                            <OverflowToolbarButton type="Transparent" tooltip="Sort" icon="sap-icon://sort" press="handleSortButtonPressed"/>
+                            <OverflowToolbarButton type="Transparent" tooltip="Group" icon="sap-icon://group-2" press="handleGroupButtonPressed"/>
+                            <OverflowToolbarButton type="Transparent" tooltip="Settings" icon="sap-icon://settings" press="handlePersoButtonPressed" />
+                        </content>
+                    </OverflowToolbar>
+                </headerToolbar>
+
+                <columns>
+                    <Column>
+                        <Text text="Company Id" />
+                    </Column>
+                    <Column minScreenWidth="Desktop" demandPopin="true" popinDisplay="Inline">
+                        <Text text="Company Name" />
+                    </Column>
+                    <Column minScreenWidth="Desktop" demandPopin="true" popinDisplay="Inline">
+                        <Text text="Company Department" />
+                    </Column>
+
+                </columns>
+                <items>
+                    <ColumnListItem type="Navigation" navigated="{
+						parts: [
+							'settings>/navigatedItem',
+							'payrollPeriodMdl>compID'
+						],
+						formatter: '.formatter.isNavigated'
+					}" press=".onListItemPress">
+                        <cells>
+                            <ObjectIdentifier title="{companyMdl>compID}" />
+                            <Text text="{companyMdl>compName}"/>
+                            <Text text="{companyMdl>compdept}"/>
+                        </cells>
+                    </ColumnListItem>
+                </items>
+            </Table>
+        </f:content>
+        <!-- <f:footer>
+            <Bar>
+                <contentLeft>
+                    <Button id="btnMngCompany" class="sapUiTinyMarginTop" visible="{=!!${errors>/}.length}" icon="sap-icon://error" type="Negative" text="Error" press=".handleMessagePopoverPress" ariaHasPopup="Dialog" />
+                </contentLeft>
+            </Bar>
+        </f:footer> -->
+
+    </f:DynamicPage>
+</mvc:View>

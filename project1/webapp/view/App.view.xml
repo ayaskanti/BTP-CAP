@@ -2,6 +2,7 @@
     xmlns:html="http://www.w3.org/1999/xhtml"
     xmlns:mvc="sap.ui.core.mvc" displayBlock="true"
     xmlns="sap.m">
-    <App id="app">
-    </App>
+    <App id="app" backgroundImage="https://images.pexels.com/photos/7078666/pexels-photo-7078666.jpeg?auto=compress&amp;cs=tinysrgb&amp;w=1260&amp;h=750&amp;dpr=1" >
+ </App>
 </mvc:View>
+
